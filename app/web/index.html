@@ -1,218 +1,916 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Garden of Eden</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232f7a57'/%3E%3Cpath d='M12 19v-8' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M12 12c0-3 2.5-5 6-5 0 3-2.5 5-6 5z' fill='white'/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%232f7a57'/%3E%3Cpath d='M12 19v-8' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M12 12c0-3 2.5-5 6-5 0 3-2.5 5-6 5z' fill='white'/%3E%3C/svg%3E" />
   <style>
     :root {
-      --bg1:#e8f1ea; --bg2:#dDe9e0;
-      --surface:#ffffff; --surface-2:#f4f9f5;
-      --line:#e2ece4; --line-2:#d2e2d6;
-      --ink:#16271c; --muted:#5d7d68; --faint:#8aa593;
-      --green:#2f7a57; --green-2:#3f9b6e; --green-ink:#1d5a3e;
-      --amber:#c8862f; --amber-bg:#fdf3e1;
-      --red:#cf6b6b; --red-ink:#9b3d3d;
-      --shadow:0 1px 2px rgba(24,60,40,.04), 0 8px 24px -12px rgba(24,60,40,.18);
-      --radius:18px;
-      color-scheme:light;
+      --bg1: #e8f1ea;
+      --bg2: #dDe9e0;
+      --surface: #ffffff;
+      --surface-2: #f4f9f5;
+      --line: #e2ece4;
+      --line-2: #d2e2d6;
+      --ink: #16271c;
+      --muted: #5d7d68;
+      --faint: #8aa593;
+      --green: #2f7a57;
+      --green-2: #3f9b6e;
+      --green-ink: #1d5a3e;
+      --amber: #c8862f;
+      --amber-bg: #fdf3e1;
+      --red: #cf6b6b;
+      --red-ink: #9b3d3d;
+      --shadow: 0 1px 2px rgba(24, 60, 40, .04), 0 8px 24px -12px rgba(24, 60, 40, .18);
+      --radius: 18px;
+      color-scheme: light;
     }
+
     html[data-theme="dark"] {
-      --bg1:#0e1512; --bg2:#0a0f0c;
-      --surface:#15201b; --surface-2:#1c2922;
-      --line:#26352c; --line-2:#33473b;
-      --ink:#e6efe9; --muted:#9fb8a8; --faint:#7d9888;
-      --green:#2f9b68; --green-2:#54bd8a; --green-ink:#cdeede;
-      --amber:#e0a44a; --amber-bg:#2a2113;
-      --red:#e08a8a; --red-ink:#f0c9c9;
-      --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 26px -14px rgba(0,0,0,.7);
-      color-scheme:dark;
+      --bg1: #0e1512;
+      --bg2: #0a0f0c;
+      --surface: #15201b;
+      --surface-2: #1c2922;
+      --line: #26352c;
+      --line-2: #33473b;
+      --ink: #e6efe9;
+      --muted: #9fb8a8;
+      --faint: #7d9888;
+      --green: #2f9b68;
+      --green-2: #54bd8a;
+      --green-ink: #cdeede;
+      --amber: #e0a44a;
+      --amber-bg: #2a2113;
+      --red: #e08a8a;
+      --red-ink: #f0c9c9;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 10px 26px -14px rgba(0, 0, 0, .7);
+      color-scheme: dark;
     }
-    html[data-theme="dark"] body { background:radial-gradient(1200px 600px at 80% -10%, #18271f 0%, var(--bg1) 45%, var(--bg2) 100%); }
-    html[data-theme="dark"] .bar { background:#26352c; }
-    html[data-theme="dark"] .tile.alert { background:#3a2020; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    html { -webkit-text-size-adjust:100%; }
+
+    html[data-theme="dark"] body {
+      background: radial-gradient(1200px 600px at 80% -10%, #18271f 0%, var(--bg1) 45%, var(--bg2) 100%);
+    }
+
+    html[data-theme="dark"] .bar {
+      background: #26352c;
+    }
+
+    html[data-theme="dark"] .tile.alert {
+      background: #3a2020;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,system-ui,sans-serif;
-      color:var(--ink); line-height:1.5;
-      background:radial-gradient(1200px 600px at 80% -10%, #f3faf4 0%, var(--bg1) 45%, var(--bg2) 100%);
-      min-height:100vh; padding:20px 16px 60px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, system-ui, sans-serif;
+      color: var(--ink);
+      line-height: 1.5;
+      background: radial-gradient(1200px 600px at 80% -10%, #f3faf4 0%, var(--bg1) 45%, var(--bg2) 100%);
+      min-height: 100vh;
+      padding: 20px 16px 60px;
     }
-    .wrap { max-width:880px; margin:0 auto; }
+
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+    }
 
     /* Header */
-    header { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
-    .logo { width:44px; height:44px; flex:0 0 auto; border-radius:13px;
-      background:linear-gradient(150deg,var(--green-2),var(--green)); display:grid; place-items:center;
-      box-shadow:var(--shadow); font-size:22px; }
-    header h1 { font-size:1.4rem; font-weight:700; letter-spacing:-.02em; }
-    header .sub { font-size:.78rem; color:var(--muted); margin-top:1px; }
-    header .spacer { flex:1; }
-    .chip { display:inline-flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--line);
-      border-radius:999px; padding:6px 12px; font-size:.76rem; color:var(--muted); box-shadow:var(--shadow); }
-    .dot { width:9px; height:9px; border-radius:50%; background:#c2cfc6; transition:background .3s; }
-    .dot.ok { background:#43b97f; box-shadow:0 0 0 3px rgba(67,185,127,.18); }
-    .dot.bad { background:var(--red); box-shadow:0 0 0 3px rgba(207,107,107,.18); }
-    .icon-btn { border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:12px;
-      width:38px; height:38px; font-size:16px; cursor:pointer; box-shadow:var(--shadow); transition:.15s; }
-    .icon-btn:hover { color:var(--green); border-color:var(--line-2); }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 auto;
+      border-radius: 13px;
+      background: linear-gradient(150deg, var(--green-2), var(--green));
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      font-size: 22px;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    header .sub {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    header .spacer {
+      flex: 1;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .76rem;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #c2cfc6;
+      transition: background .3s;
+    }
+
+    .dot.ok {
+      background: #43b97f;
+      box-shadow: 0 0 0 3px rgba(67, 185, 127, .18);
+    }
+
+    .dot.bad {
+      background: var(--red);
+      box-shadow: 0 0 0 3px rgba(207, 107, 107, .18);
+    }
+
+    .icon-btn {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: .15s;
+    }
+
+    .icon-btn:hover {
+      color: var(--green);
+      border-color: var(--line-2);
+    }
 
     /* Cards */
-    .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
-      padding:18px 20px; margin-bottom:16px; box-shadow:var(--shadow); }
-    .card h2 { font-size:.7rem; text-transform:uppercase; letter-spacing:.09em; color:var(--faint);
-      font-weight:700; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; }
-    .row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-    .row + .row { margin-top:14px; }
-    label { font-size:.82rem; color:var(--muted); }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: var(--faint);
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .row+.row {
+      margin-top: 14px;
+    }
+
+    label {
+      font-size: .82rem;
+      color: var(--muted);
+    }
 
     /* Stat tiles */
-    .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; }
-    .tile { background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:14px;
-      transition:.15s; }
-    .tile:hover { border-color:var(--line-2); transform:translateY(-1px); }
-    .tile .top { display:flex; align-items:center; gap:6px; color:var(--faint); font-size:.7rem;
-      text-transform:uppercase; letter-spacing:.05em; font-weight:600; }
-    .tile .val { font-size:1.7rem; font-weight:700; letter-spacing:-.02em; color:var(--green-ink); margin-top:6px; }
-    .tile .val small { font-size:.8rem; font-weight:600; color:var(--faint); margin-left:2px; }
-    .tile.sm .val { font-size:1.15rem; }
-    .tile.alert { border-color:var(--red); background:#fdf1f1; }
-    .bar { height:7px; background:#e2ece4; border-radius:999px; margin-top:10px; overflow:hidden; }
-    .bar > i { display:block; height:100%; border-radius:999px;
-      background:linear-gradient(90deg,var(--green-2),var(--green)); transition:width .5s ease; }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .tile {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      transition: .15s;
+    }
+
+    .tile:hover {
+      border-color: var(--line-2);
+      transform: translateY(-1px);
+    }
+
+    .tile .top {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--faint);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 600;
+    }
+
+    .tile .val {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: var(--green-ink);
+      margin-top: 6px;
+    }
+
+    .tile .val small {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--faint);
+      margin-left: 2px;
+    }
+
+    .tile.sm .val {
+      font-size: 1.15rem;
+    }
+
+    .tile.alert {
+      border-color: var(--red);
+      background: #fdf1f1;
+    }
+
+    .bar {
+      height: 7px;
+      background: #e2ece4;
+      border-radius: 999px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green-2), var(--green));
+      transition: width .5s ease;
+    }
 
     /* Segmented on/off */
-    .seg { display:inline-flex; background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:4px; gap:4px; }
-    .seg button { border:0; background:transparent; color:var(--muted); font-weight:600; font-size:.85rem;
-      padding:7px 18px; border-radius:9px; cursor:pointer; transition:.15s; }
-    .seg button.active { background:var(--green); color:#fff; box-shadow:0 2px 8px -2px rgba(47,122,87,.5); }
-    .seg button.active.danger { background:var(--red); box-shadow:0 2px 8px -2px rgba(207,107,107,.5); }
-    .statuschip { margin-left:auto; font-size:.72rem; font-weight:700; letter-spacing:.06em; color:var(--faint); }
+    .seg {
+      display: inline-flex;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .seg button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: .85rem;
+      padding: 7px 18px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .seg button.active {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 2px 8px -2px rgba(47, 122, 87, .5);
+    }
+
+    .seg button.active.danger {
+      background: var(--red);
+      box-shadow: 0 2px 8px -2px rgba(207, 107, 107, .5);
+    }
+
+    .statuschip {
+      margin-left: auto;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--faint);
+    }
 
     /* Range slider */
-    input[type=range]{ -webkit-appearance:none; appearance:none; flex:1; min-width:130px; height:7px;
-      background:#e2ece4; border-radius:999px; outline:none; }
-    input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
-      background:#fff; border:3px solid var(--green); cursor:pointer; box-shadow:0 1px 4px rgba(0,0,0,.15); }
-    input[type=range]::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:#fff;
-      border:3px solid var(--green); cursor:pointer; }
-    .pct { font-variant-numeric:tabular-nums; font-weight:700; color:var(--green-ink); min-width:42px; text-align:right; }
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      flex: 1;
+      min-width: 130px;
+      height: 7px;
+      background: #e2ece4;
+      border-radius: 999px;
+      outline: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--green);
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--green);
+      cursor: pointer;
+    }
+
+    .pct {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      color: var(--green-ink);
+      min-width: 42px;
+      text-align: right;
+    }
 
     /* Buttons / inputs */
-    button.btn { background:var(--green); color:#fff; border:0; border-radius:11px; padding:9px 16px;
-      font-size:.85rem; font-weight:600; cursor:pointer; transition:.15s; }
-    button.btn:hover { background:var(--green-2); }
-    button.ghost { background:var(--surface); color:var(--green-ink); border:1px solid var(--line-2);
-      border-radius:11px; padding:8px 14px; font-size:.82rem; font-weight:600; cursor:pointer; }
-    button.ghost:hover { border-color:var(--green); color:var(--green); }
-    input[type=time],input[type=number],input[type=password],select{
-      font:inherit; font-size:.85rem; padding:8px 10px; border:1px solid var(--line-2); border-radius:10px;
-      background:#fff; color:var(--ink); }
-    input:focus,select:focus{ outline:none; border-color:var(--green-2); box-shadow:0 0 0 3px rgba(63,155,110,.15); }
-    .muted { color:var(--faint); font-size:.76rem; }
+    button.btn {
+      background: var(--green);
+      color: #fff;
+      border: 0;
+      border-radius: 11px;
+      padding: 9px 16px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    button.btn:hover {
+      background: var(--green-2);
+    }
+
+    button.ghost {
+      background: var(--surface);
+      color: var(--green-ink);
+      border: 1px solid var(--line-2);
+      border-radius: 11px;
+      padding: 8px 14px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.ghost:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    input[type=time],
+    input[type=number],
+    input[type=password],
+    select {
+      font: inherit;
+      font-size: .85rem;
+      padding: 8px 10px;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--green-2);
+      box-shadow: 0 0 0 3px rgba(63, 155, 110, .15);
+    }
+
+    .muted {
+      color: var(--faint);
+      font-size: .76rem;
+    }
 
     /* Toggle switch */
-    .switch { position:relative; display:inline-flex; align-items:center; gap:9px; cursor:pointer; font-size:.82rem; color:var(--muted); }
-    .switch input { position:absolute; opacity:0; width:0; height:0; }
-    .switch .track { width:40px; height:23px; background:#cdddd2; border-radius:999px; transition:.2s; flex:0 0 auto; position:relative; }
-    .switch .track::after { content:""; position:absolute; top:3px; left:3px; width:17px; height:17px;
-      background:#fff; border-radius:50%; transition:.2s; box-shadow:0 1px 3px rgba(0,0,0,.2); }
-    .switch input:checked + .track { background:var(--green-2); }
-    .switch input:checked + .track::after { transform:translateX(17px); }
+    .switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch .track {
+      width: 40px;
+      height: 23px;
+      background: #cdddd2;
+      border-radius: 999px;
+      transition: .2s;
+      flex: 0 0 auto;
+      position: relative;
+    }
+
+    .switch .track::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 17px;
+      height: 17px;
+      background: #fff;
+      border-radius: 50%;
+      transition: .2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    }
+
+    .switch input:checked+.track {
+      background: var(--green-2);
+    }
+
+    .switch input:checked+.track::after {
+      transform: translateX(17px);
+    }
 
     /* Cameras */
-    .cams { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .cam { position:relative; border-radius:14px; overflow:hidden; background:#dde7e0; aspect-ratio:4/3; border:1px solid var(--line); }
-    .cam img, .cam video { width:100%; height:100%; object-fit:cover; display:block; background:#000; }
-    .cam figcaption { position:absolute; left:10px; bottom:8px; color:#fff; font-size:.72rem; font-weight:600;
-      text-shadow:0 1px 4px rgba(0,0,0,.6); }
+    .cams {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .cam {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #dde7e0;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--line);
+    }
+
+    .cam img,
+    .cam video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .cam figcaption {
+      position: absolute;
+      left: 10px;
+      bottom: 8px;
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    }
 
     /* Pills (reminders) */
-    .pill { display:inline-flex; align-items:center; gap:6px; background:var(--amber-bg); color:var(--amber);
-      border:1px solid #f0dcb6; border-radius:999px; padding:5px 12px; font-size:.76rem; font-weight:600; }
-    .pill button { border:0; background:rgba(0,0,0,.06); color:var(--amber); border-radius:999px;
-      padding:2px 9px; font-size:.7rem; cursor:pointer; font-weight:700; }
-    .runs .run { display:flex; align-items:center; gap:9px; margin-top:9px; }
-    .sched-days { display:flex; flex-direction:column; margin-top:10px; }
-    .sched-day { display:flex; gap:10px; align-items:flex-start; padding:8px 0; border-top:1px solid var(--line); }
-    .sched-day .dname { width:42px; flex:0 0 42px; padding-top:6px; font-weight:700; color:var(--muted); text-transform:capitalize; }
-    .sched-day .entries { flex:1; display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
-    .sched-day .entry { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
-    .kv { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
-    .kv > div { display:flex; justify-content:space-between; gap:10px; border-bottom:1px solid var(--line); padding:6px 0; }
-    .kv .k { color:var(--muted); }
-    .kv .v { font-weight:600; text-align:right; }
-    /* Stage preset modes */
-    .modes { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
-    .mode { border:1px solid var(--line); background:var(--surface-2); color:var(--ink); border-radius:999px;
-      padding:8px 14px; font-size:.82rem; font-weight:600; cursor:pointer; transition:.15s; }
-    .mode:hover { border-color:var(--green-2); color:var(--green); transform:translateY(-1px); }
-    /* Week heatmap scheduler */
-    .heatmap { display:grid; grid-template-columns:30px repeat(24,1fr); gap:2px; align-items:center; }
-    .heatmap .hlabel { font-size:.6rem; color:var(--faint); text-align:right; padding-right:4px; }
-    .heatmap .hhour { font-size:.52rem; color:var(--faint); text-align:center; }
-    .heatmap .cell { height:15px; border-radius:3px; background:var(--surface-2); position:relative; }
-    .heatmap .cell.pump::after { content:""; position:absolute; inset:0; margin:auto; width:4px; height:4px;
-      border-radius:50%; background:#4a9be0; }
-    .hm-legend { display:flex; gap:16px; margin-top:10px; font-size:.7rem; color:var(--muted); align-items:center; }
-    .hm-legend .sw { display:inline-block; width:11px; height:11px; border-radius:3px; vertical-align:-1px; margin-right:5px; }
-    .hm-legend .sw.light { background:var(--green); } .hm-legend .sw.pump { background:#4a9be0; }
-    details.customize { margin-top:14px; }
-    details.customize > summary { cursor:pointer; font-size:.78rem; color:var(--green); font-weight:600; list-style:none; }
-    details.customize > summary::before { content:"⚙ "; }
-    /* Alert banners */
-    #alerts { display:flex; flex-direction:column; gap:8px; }
-    #alerts:not(:empty) { margin-bottom:16px; }
-    .alert-banner { display:flex; align-items:center; gap:10px; background:var(--amber-bg); border:1px solid var(--amber);
-      color:var(--amber); border-radius:14px; padding:12px 16px; font-size:.88rem; font-weight:600; box-shadow:var(--shadow); }
-    .alert-banner button { margin-left:auto; }
-    /* Per-pod plant tracking */
-    .pods { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-    @media (max-width:640px){ .pods { grid-template-columns:1fr 1fr; } }
-    .pod { border:1px solid var(--line); background:var(--surface-2); border-radius:10px; padding:8px; }
-    .pod .pn { font-size:.6rem; color:var(--faint); font-weight:700; letter-spacing:.05em; }
-    .pod input { width:100%; margin:4px 0; font-size:.8rem; padding:4px 6px; border-radius:7px; }
-    .pod select { width:100%; margin:4px 0; font-size:.76rem; padding:4px 6px; }
-    .pod .pguide { font-size:.58rem; line-height:1.3; margin:0 0 5px; }
-    .pod .shapes { display:flex; flex-wrap:wrap; gap:3px; }
-    .pod .shapes button { width:21px; height:21px; border:1px solid var(--line); background:var(--surface);
-      color:var(--muted); border-radius:5px; font-size:11px; line-height:1; cursor:pointer; padding:0; }
-    .pod .shapes button.on { background:var(--green); color:#fff; border-color:var(--green); }
-    /* Collapsible cards (accordion) */
-    .card > h2 { justify-content:flex-start; gap:8px; cursor:pointer; user-select:none; }
-    .card > h2 > button, .card > h2 > span { margin-left:auto; }
-    .card > h2::before { content:"▾"; color:var(--faint); font-size:.8rem; transition:transform .2s; flex:0 0 auto; }
-    .card.collapsed > h2::before { transform:rotate(-90deg); }
-    .card.collapsed > .card-body { display:none; }
-    .card.no-collapse > h2 { cursor:default; }
-    .card.no-collapse > h2::before { content:none; }
-    /* Consistent select styling */
-    select { font:inherit; color:var(--ink); background:var(--surface-2); border:1px solid var(--line);
-      border-radius:8px; padding:5px 8px; cursor:pointer; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--amber-bg);
+      color: var(--amber);
+      border: 1px solid #f0dcb6;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: .76rem;
+      font-weight: 600;
+    }
 
-    #settings { display:none; } #settings.open { display:block; }
+    .pill button {
+      border: 0;
+      background: rgba(0, 0, 0, .06);
+      color: var(--amber);
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: .7rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .runs .run {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 9px;
+    }
+
+    .sched-days {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+
+    .sched-day {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .sched-day .dname {
+      width: 42px;
+      flex: 0 0 42px;
+      padding-top: 6px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: capitalize;
+    }
+
+    .sched-day .entries {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .sched-day .entry {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 18px;
+    }
+
+    .kv>div {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      padding: 6px 0;
+    }
+
+    .kv .k {
+      color: var(--muted);
+    }
+
+    .kv .v {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Stage preset modes */
+    .modes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .mode {
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .mode:hover {
+      border-color: var(--green-2);
+      color: var(--green);
+      transform: translateY(-1px);
+    }
+
+    /* Week heatmap scheduler */
+    .heatmap {
+      display: grid;
+      grid-template-columns: 30px repeat(24, 1fr);
+      gap: 2px;
+      align-items: center;
+    }
+
+    .heatmap .hlabel {
+      font-size: .6rem;
+      color: var(--faint);
+      text-align: right;
+      padding-right: 4px;
+    }
+
+    .heatmap .hhour {
+      font-size: .52rem;
+      color: var(--faint);
+      text-align: center;
+    }
+
+    .heatmap .cell {
+      height: 15px;
+      border-radius: 3px;
+      background: var(--surface-2);
+      position: relative;
+    }
+
+    .heatmap .cell.pump::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #4a9be0;
+    }
+
+    .hm-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: .7rem;
+      color: var(--muted);
+      align-items: center;
+    }
+
+    .hm-legend .sw {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      border-radius: 3px;
+      vertical-align: -1px;
+      margin-right: 5px;
+    }
+
+    .hm-legend .sw.light {
+      background: var(--green);
+    }
+
+    .hm-legend .sw.pump {
+      background: #4a9be0;
+    }
+
+    details.customize {
+      margin-top: 14px;
+    }
+
+    details.customize>summary {
+      cursor: pointer;
+      font-size: .78rem;
+      color: var(--green);
+      font-weight: 600;
+      list-style: none;
+    }
+
+    details.customize>summary::before {
+      content: "⚙ ";
+    }
+
+    /* Alert banners */
+    #alerts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #alerts:not(:empty) {
+      margin-bottom: 16px;
+    }
+
+    .alert-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amber-bg);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: .88rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+
+    .alert-banner button {
+      margin-left: auto;
+    }
+
+    /* Per-pod plant tracking */
+    .pods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width:640px) {
+      .pods {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .pod {
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    .pod .pn {
+      font-size: .6rem;
+      color: var(--faint);
+      font-weight: 700;
+      letter-spacing: .05em;
+    }
+
+    .pod input {
+      width: 100%;
+      margin: 4px 0;
+      font-size: .8rem;
+      padding: 4px 6px;
+      border-radius: 7px;
+    }
+
+    .pod select {
+      width: 100%;
+      margin: 4px 0;
+      font-size: .76rem;
+      padding: 4px 6px;
+    }
+
+    .pod .pguide {
+      font-size: .58rem;
+      line-height: 1.3;
+      margin: 0 0 5px;
+    }
+
+    .pod .shapes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .pod .shapes button {
+      width: 21px;
+      height: 21px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      border-radius: 5px;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .pod .shapes button.on {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    /* Collapsible cards (accordion) */
+    .card>h2 {
+      justify-content: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card>h2>button,
+    .card>h2>span {
+      margin-left: auto;
+    }
+
+    .card>h2::before {
+      content: "▾";
+      color: var(--faint);
+      font-size: .8rem;
+      transition: transform .2s;
+      flex: 0 0 auto;
+    }
+
+    .card.collapsed>h2::before {
+      transform: rotate(-90deg);
+    }
+
+    .card.collapsed>.card-body {
+      display: none;
+    }
+
+    .card.no-collapse>h2 {
+      cursor: default;
+    }
+
+    .card.no-collapse>h2::before {
+      content: none;
+    }
+
+    /* Consistent select styling */
+    select {
+      font: inherit;
+      color: var(--ink);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 8px;
+      cursor: pointer;
+    }
+
+    #settings {
+      display: none;
+    }
+
+    #settings.open {
+      display: block;
+    }
 
     /* Toast */
-    #toast { position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(8px);
-      background:var(--green-ink); color:#fff; padding:11px 20px; border-radius:12px; font-size:.85rem; font-weight:500;
-      opacity:0; transition:.25s; pointer-events:none; box-shadow:0 10px 30px -8px rgba(0,0,0,.4); }
-    #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-    #toast.err { background:var(--red-ink); }
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--green-ink);
+      color: #fff;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: .85rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: .25s;
+      pointer-events: none;
+      box-shadow: 0 10px 30px -8px rgba(0, 0, 0, .4);
+    }
 
-    @media (max-width:520px){ .cams{ grid-template-columns:1fr; } header h1{ font-size:1.2rem; } }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #toast.err {
+      background: var(--red-ink);
+    }
+
+    @media (max-width:520px) {
+      .cams {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 1.2rem;
+      }
+    }
   </style>
-  <script>(function(){var t=localStorage.getItem("theme")||"dark";document.documentElement.dataset.theme=t==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;})();</script>
+  <script>(function () { var t = localStorage.getItem("theme") || "dark"; document.documentElement.dataset.theme = t === "auto" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : t; })();</script>
 </head>
+
 <body>
   <div class="wrap">
     <header>
       <div class="logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20v-9"/>
-          <path d="M12 11c0-4 3-7 8-7 0 4-3 7-8 7z"/>
-          <path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20v-9" />
+          <path d="M12 11c0-4 3-7 8-7 0 4-3 7-8 7z" />
+          <path d="M12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5z" />
         </svg>
       </div>
       <div>
@@ -221,11 +919,14 @@
       </div>
       <div class="spacer"></div>
       <span class="chip"><span class="dot" id="conn"></span><span>status</span></span>
-      <button class="icon-btn" title="Toggle light/dark" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-btn">🌙</button>
+      <button class="icon-btn" title="Toggle light/dark" onclick="toggleTheme()" aria-label="Toggle theme"
+        id="theme-btn">🌙</button>
       <button class="icon-btn" title="Settings" onclick="toggleSettings()" aria-label="Settings">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
       </button>
     </header>
@@ -239,7 +940,9 @@
         <input type="password" id="api-key" placeholder="leave blank on the Pi" style="flex:1; min-width:160px">
         <button class="btn" onclick="saveKey()">Save</button>
       </div>
-      <p class="muted" style="margin-top:10px">Stored in this browser only. Needed when the firmware sets <code>GARDEN_API_KEY</code> and you connect from another machine.</p>
+      <p class="muted" style="margin-top:10px">Stored in this browser only. Needed when the firmware sets
+        <code>GARDEN_API_KEY</code> and you connect from another machine.
+      </p>
       <div class="row" style="margin-top:14px">
         <label>Theme</label>
         <select id="set-theme" onchange="setThemePref(this.value)">
@@ -259,16 +962,42 @@
     <div class="card">
       <h2>Sensors <button class="ghost" onclick="refresh()">Refresh</button></h2>
       <div class="tiles">
-        <div class="tile"><div class="top">Air Temp</div><div class="val"><span id="s-temp">—</span><small>°C</small></div></div>
-        <div class="tile"><div class="top">Humidity</div><div class="val"><span id="s-hum">—</span><small>%</small></div></div>
-        <div class="tile"><div class="top">PCB Temp</div><div class="val"><span id="s-pcb">—</span><small>°C</small></div></div>
-        <div class="tile" id="s-water-card"><div class="top">Water <span class="statuschip" id="s-water-status"></span></div><div class="val"><span id="s-water-gal">—</span><small>gal</small></div><div class="muted" style="font-size:.68rem"><span id="s-water">—</span> cm</div><div class="bar"><i id="s-water-bar" style="width:0"></i></div></div>
+        <div class="tile">
+          <div class="top">Air Temp</div>
+          <div class="val"><span id="s-temp">—</span><small>°C</small></div>
+        </div>
+        <div class="tile">
+          <div class="top">Humidity</div>
+          <div class="val"><span id="s-hum">—</span><small>%</small></div>
+        </div>
+        <div class="tile">
+          <div class="top">PCB Temp</div>
+          <div class="val"><span id="s-pcb">—</span><small>°C</small></div>
+        </div>
+        <div class="tile" id="s-water-card">
+          <div class="top">Water <span class="statuschip" id="s-water-status"></span></div>
+          <div class="val"><span id="s-water-gal">—</span><small>gal</small></div>
+          <div class="muted" style="font-size:.68rem"><span id="s-water">—</span> cm</div>
+          <div class="bar"><i id="s-water-bar" style="width:0"></i></div>
+        </div>
       </div>
       <div class="tiles" style="margin-top:12px">
-        <div class="tile sm"><div class="top">Pump Voltage</div><div class="val"><span id="p-volt">—</span><small>V</small></div></div>
-        <div class="tile sm"><div class="top">Current</div><div class="val"><span id="p-curr">—</span><small>mA</small></div></div>
-        <div class="tile sm"><div class="top">Power</div><div class="val"><span id="p-pow">—</span><small>mW</small></div></div>
-        <div class="tile sm"><div class="top">Shunt</div><div class="val"><span id="p-shunt">—</span><small>mV</small></div></div>
+        <div class="tile sm">
+          <div class="top">Pump Voltage</div>
+          <div class="val"><span id="p-volt">—</span><small>V</small></div>
+        </div>
+        <div class="tile sm">
+          <div class="top">Current</div>
+          <div class="val"><span id="p-curr">—</span><small>mA</small></div>
+        </div>
+        <div class="tile sm">
+          <div class="top">Power</div>
+          <div class="val"><span id="p-pow">—</span><small>mW</small></div>
+        </div>
+        <div class="tile sm">
+          <div class="top">Shunt</div>
+          <div class="val"><span id="p-shunt">—</span><small>mV</small></div>
+        </div>
       </div>
       <div class="muted" id="updated" style="margin-top:12px">—</div>
     </div>
@@ -288,13 +1017,14 @@
     <div class="card">
       <h2>Light</h2>
       <div class="row">
-        <div class="seg"><button id="light-on" onclick="setLight(true)">On</button><button id="light-off" onclick="setLight(false)">Off</button></div>
+        <div class="seg"><button id="light-on" onclick="setLight(true)">On</button><button id="light-off"
+            onclick="setLight(false)">Off</button></div>
         <span class="statuschip" id="light-status">—</span>
       </div>
       <div class="row">
         <label>Brightness</label>
         <input type="range" min="0" max="100" id="brightness" oninput="lbl('brightness')"
-               onchange="post('/light/brightness', {value:+this.value}); setActive('light', +this.value>0)">
+          onchange="post('/light/brightness', {value:+this.value}); setActive('light', +this.value>0)">
         <span class="pct" id="brightness-val">50%</span>
       </div>
     </div>
@@ -302,18 +1032,20 @@
     <div class="card">
       <h2>Pump</h2>
       <div class="row">
-        <div class="seg"><button id="pump-on" onclick="setPump(true)">On</button><button id="pump-off" onclick="setPump(false)">Off</button></div>
+        <div class="seg"><button id="pump-on" onclick="setPump(true)">On</button><button id="pump-off"
+            onclick="setPump(false)">Off</button></div>
         <span class="statuschip" id="pump-status">—</span>
       </div>
       <div class="row">
         <label>Speed</label>
         <input type="range" min="0" max="100" id="speed" oninput="lbl('speed')"
-               onchange="post('/pump/speed', {value:+this.value}); setActive('pump', +this.value>0)">
+          onchange="post('/pump/speed', {value:+this.value}); setActive('pump', +this.value>0)">
         <span class="pct" id="speed-val">100%</span>
       </div>
       <div class="row">
         <label>Run for</label>
-        <input type="number" id="run-secs" min="1" max="900" value="300" style="width:90px"> <span class="muted">seconds (max 900)</span>
+        <input type="number" id="run-secs" min="1" max="900" value="300" style="width:90px"> <span class="muted">seconds
+          (max 900)</span>
         <button class="btn" onclick="runPump()">Run</button>
       </div>
     </div>
@@ -321,13 +1053,18 @@
     <div class="card">
       <h2>Cameras
         <span style="display:flex; gap:12px; align-items:center">
-          <label class="switch"><input type="checkbox" id="cam-auto" onchange="toggleCamAuto()"><span class="track"></span>live</label>
+          <label class="switch"><input type="checkbox" id="cam-auto" onchange="toggleCamAuto()"><span
+              class="track"></span>live</label>
           <button class="ghost" onclick="loadCams()">Reload</button>
         </span>
       </h2>
       <div class="cams">
-        <figure class="cam"><img id="cam-upper" alt="upper camera"><figcaption>Upper</figcaption></figure>
-        <figure class="cam"><img id="cam-lower" alt="lower camera"><figcaption>Lower</figcaption></figure>
+        <figure class="cam"><img id="cam-upper" alt="upper camera">
+          <figcaption>Upper</figcaption>
+        </figure>
+        <figure class="cam"><img id="cam-lower" alt="lower camera">
+          <figcaption>Lower</figcaption>
+        </figure>
       </div>
       <h2 style="margin-top:18px">Timelapse
         <span style="display:flex; gap:8px">
@@ -336,8 +1073,12 @@
         </span>
       </h2>
       <div class="cams">
-        <figure class="cam"><video id="tl-upper" controls preload="none" playsinline muted loop></video><figcaption>Upper timelapse</figcaption></figure>
-        <figure class="cam"><video id="tl-lower" controls preload="none" playsinline muted loop></video><figcaption>Lower timelapse</figcaption></figure>
+        <figure class="cam"><video id="tl-upper" controls preload="none" playsinline muted loop></video>
+          <figcaption>Upper timelapse</figcaption>
+        </figure>
+        <figure class="cam"><video id="tl-lower" controls preload="none" playsinline muted loop></video>
+          <figcaption>Lower timelapse</figcaption>
+        </figure>
       </div>
     </div>
 
@@ -346,10 +1087,13 @@
       <div class="row">
         <label>Stage</label>
         <select id="grow-stage" onchange="setStage(this.value)">
-          <option>germination</option><option>thinning</option>
-          <option>root_check</option><option>harvest</option>
+          <option>germination</option>
+          <option>thinning</option>
+          <option>root_check</option>
+          <option>harvest</option>
         </select>
-        <span class="pill" id="grow-days" style="background:var(--surface-2); color:var(--muted); border-color:var(--line)">—</span>
+        <span class="pill" id="grow-days"
+          style="background:var(--surface-2); color:var(--muted); border-color:var(--line)">—</span>
         <button class="ghost" onclick="startGrow()" style="margin-left:auto">Start new cycle</button>
       </div>
       <div class="row" id="grow-reminders" style="margin-top:14px"></div>
@@ -357,7 +1101,8 @@
 
     <div class="card">
       <h2>Plants <button class="ghost" onclick="savePods()">Save plants</button></h2>
-      <p class="muted" style="margin:-4px 0 12px">Name each pod and tap the shapes to match the code printed on the physical pod.</p>
+      <p class="muted" style="margin:-4px 0 12px">Name each pod and tap the shapes to match the code printed on the
+        physical pod.</p>
       <div class="pods" id="pods"></div>
     </div>
 
@@ -394,7 +1139,8 @@
       </details>
 
       <div class="row" style="margin-top:18px">
-        <label class="switch"><input type="checkbox" id="sch-vacation-en"><span class="track"></span>Vacation mode</label>
+        <label class="switch"><input type="checkbox" id="sch-vacation-en"><span class="track"></span>Vacation
+          mode</label>
         <label>until <input type="date" id="sch-vacation-until"></label>
         <span class="muted">reduced light/water (10–16h @ 50%, one short pump) until this date</span>
       </div>
@@ -436,7 +1182,7 @@
     async function post(path, body) {
       try {
         const r = await fetchT(path, { method: "POST", headers: headers({ "Content-Type": "application/json" }), body: JSON.stringify(body || {}) });
-        let d = {}; try { d = await r.json(); } catch {}
+        let d = {}; try { d = await r.json(); } catch { }
         conn(r.ok); toast(d.message || d.error || (r.ok ? "ok" : "error " + r.status), !r.ok); return d;
       } catch (e) { conn(false); toast(e.name === "AbortError" ? "request timed out" : "error: " + e.message, true); }
     }
@@ -446,6 +1192,8 @@
       catch { conn(false); }
     }
 
+    // Format a reading to 2 decimals; pass through anything non-numeric.
+    const fix2 = v => (v == null || isNaN(v)) ? (v ?? "—") : Number(v).toFixed(2);
     function lbl(id) { $(id + "-val").textContent = $(id).value + "%"; }
     function setActive(device, isOn) {
       $(device + "-on").classList.toggle("active", isOn);
@@ -482,7 +1230,7 @@
       } catch { $("s-water").textContent = "n/a"; $("s-water-gal").textContent = "n/a"; $("s-water-status").textContent = ""; }
       try {
         const p = await get("/pump/stats");
-        if (p.BusVoltage != null) { $("p-volt").textContent = p.BusVoltage; $("p-curr").textContent = p.BusCurrent; $("p-pow").textContent = p.Power; $("p-shunt").textContent = p.ShuntVoltage ?? "—"; }
+        if (p.BusVoltage != null) { $("p-volt").textContent = p.BusVoltage; $("p-curr").textContent = fix2(p.BusCurrent); $("p-pow").textContent = fix2(p.Power); $("p-shunt").textContent = p.ShuntVoltage ?? "—"; }
         else { $("p-volt").textContent = $("p-curr").textContent = $("p-pow").textContent = $("p-shunt").textContent = "—"; }
       } catch { /* optional */ }
       $("updated").textContent = "updated " + new Date().toLocaleTimeString();
@@ -528,7 +1276,7 @@
           const v = Math.round((await get(path)).value || 0);
           setActive(device, v > 0);
           if (document.activeElement !== $(slider)) { $(slider).value = v; lbl(slider); }
-        } catch {}
+        } catch { }
       }
     }
 
@@ -546,7 +1294,7 @@
           btn.onclick = () => post("/grow/acknowledge", { key }).then(loadGrow);
           span.appendChild(btn); box.appendChild(span);
         });
-      } catch {}
+      } catch { }
     }
     function setStage(stage) { post("/grow/stage", { stage }); }
     function startGrow() { post("/grow/start").then(loadGrow); }
@@ -588,13 +1336,13 @@
 
     // ---- One-click stage presets (fill the editor; user reviews & Saves) ----
     const PRESETS = {
-      germinate:  { light: { onTime: "06:00", offTime: "22:00", brightness: 30, rampMinutes: 15 }, pump: [{ time: "06:00", duration: 3 }, { time: "12:00", duration: 3 }, { time: "18:00", duration: 3 }] },
-      seedling:   { light: { onTime: "06:00", offTime: "22:00", brightness: 50, rampMinutes: 15 }, pump: [{ time: "08:00", duration: 4 }, { time: "16:00", duration: 4 }, { time: "00:00", duration: 4 }] },
+      germinate: { light: { onTime: "06:00", offTime: "22:00", brightness: 30, rampMinutes: 15 }, pump: [{ time: "06:00", duration: 3 }, { time: "12:00", duration: 3 }, { time: "18:00", duration: 3 }] },
+      seedling: { light: { onTime: "06:00", offTime: "22:00", brightness: 50, rampMinutes: 15 }, pump: [{ time: "08:00", duration: 4 }, { time: "16:00", duration: 4 }, { time: "00:00", duration: 4 }] },
       vegetative: { light: { onTime: "06:00", offTime: "22:00", brightness: 80, rampMinutes: 20 }, pump: [{ time: "08:00", duration: 5 }, { time: "16:00", duration: 5 }, { time: "00:00", duration: 5 }] },
-      flower:     { light: { onTime: "07:00", offTime: "19:00", brightness: 100, rampMinutes: 20 }, pump: [{ time: "08:00", duration: 5 }, { time: "14:00", duration: 5 }, { time: "20:00", duration: 5 }] },
+      flower: { light: { onTime: "07:00", offTime: "19:00", brightness: 100, rampMinutes: 20 }, pump: [{ time: "08:00", duration: 5 }, { time: "14:00", duration: 5 }, { time: "20:00", duration: 5 }] },
       // Run the garden overnight: lights on 11pm–7am (daytime sun does the rest),
       // watering while you sleep. Window crosses midnight (the heatmap handles it).
-      night:      { light: { onTime: "23:00", offTime: "07:00", brightness: 80, rampMinutes: 20 }, pump: [{ time: "23:15", duration: 5 }, { time: "02:00", duration: 5 }, { time: "05:00", duration: 5 }] },
+      night: { light: { onTime: "23:00", offTime: "07:00", brightness: 80, rampMinutes: 20 }, pump: [{ time: "23:15", duration: 5 }, { time: "02:00", duration: 5 }, { time: "05:00", duration: 5 }] },
     };
     function applyPreset(name) {
       if (name === "vacation") {
@@ -640,7 +1388,7 @@
         const d = await get("/pods");
         pods = d.pods || []; podShapes = d.shapes || []; plantCatalog = d.catalog || [];
         renderPods();
-      } catch {}
+      } catch { }
     }
     function catalogOptionsHTML() {
       const cats = {};
@@ -746,7 +1494,7 @@
         lightDays = mergeDays(l.days);
         pumpDays = mergeDays(p.days);
         renderSchedule();
-      } catch {}
+      } catch { }
     }
     function saveSchedule() {
       post("/schedule", {
@@ -800,4 +1548,5 @@
     document.addEventListener("visibilitychange", () => { if (!document.hidden) syncToggles(); });
   </script>
 </body>
+
 </html>
