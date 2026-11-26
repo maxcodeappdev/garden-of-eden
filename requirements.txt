@@ -39,3 +39,4 @@ sysv-ipc==1.1.0
 typing-extensions==4.10.0
 werkzeug==3.0.1
 zipp==3.18.1
+waitress==3.0.2

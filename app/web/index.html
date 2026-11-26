@@ -520,9 +520,16 @@
       if (r && !r.error) { const v = $("tl-" + cam); v.src = "/camera/timelapse/" + cam + "?t=" + Date.now(); v.load(); }
     }
 
+    // Pull the real light/pump levels from the Pi so every device shows the
+    // same state. Skips a slider while the user is dragging it.
     async function syncToggles() {
-      try { setActive("light", ((await get("/light/brightness")).value || 0) > 0); } catch {}
-      try { setActive("pump", ((await get("/pump/speed")).value || 0) > 0); } catch {}
+      for (const [device, path, slider] of [["light", "/light/brightness", "brightness"], ["pump", "/pump/speed", "speed"]]) {
+        try {
+          const v = Math.round((await get(path)).value || 0);
+          setActive(device, v > 0);
+          if (document.activeElement !== $(slider)) { $(slider).value = v; lbl(slider); }
+        } catch {}
+      }
     }
 
     async function loadGrow() {
@@ -788,6 +795,9 @@
     loadSystem(); refresh(); loadGrow(); loadSchedule(); loadPods(); loadCams(); loadTimelapses(); syncToggles(); ping();
     setInterval(refresh, 30000);
     setInterval(ping, 10000);
+    setInterval(syncToggles, 10000);
+    // Re-sync immediately when returning to the tab (e.g. unlocking the phone).
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) syncToggles(); });
   </script>
 </body>
 </html>
